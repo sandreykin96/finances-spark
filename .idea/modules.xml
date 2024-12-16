@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/SparkStreaming.iml" filepath="$PROJECT_DIR$/.idea/modules/SparkStreaming.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/SparkStreaming-build.iml" filepath="$PROJECT_DIR$/.idea/modules/SparkStreaming-build.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/SparkStreaming.SparkStreaming-build.iml" filepath="$PROJECT_DIR$/.idea/modules/SparkStreaming.SparkStreaming-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/project.SparkStreaming-build.iml" filepath="$PROJECT_DIR$/.idea/modules/project.SparkStreaming-build.iml" />
     </modules>
   </component>
 </project>

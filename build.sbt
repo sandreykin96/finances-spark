@@ -17,12 +17,12 @@ lazy val sparkDependencies = Seq(
   "io.netty"          % "netty-all"                   % "4.1.97.Final",
   "org.apache.spark"         %% "spark-streaming"     % sparkVersion,
   "org.apache.spark" % "spark-sql-kafka-0-10_2.12" % sparkVersion,
-
+  "org.postgresql" % "postgresql" % "42.2.18",
   "org.apache.spark"         %% "spark-hive"          % sparkHiveVersion,
   "org.apache.hadoop" % "hadoop-common" % "2.7.4",
   "org.apache.hadoop" % "hadoop-auth" % "3.2.3",
   "org.apache.kafka"         % "kafka-clients"        % kafkaClientsVersion,
-  "org.apache.spark"         % "spark-sql-kafka-0-10_2.12" % sparkVersion,
+  "org.apache.spark"         % "spark-sql-kafka-0-10_2.12" % sparkVersion
 )
 
 lazy val root = (project in file("."))
