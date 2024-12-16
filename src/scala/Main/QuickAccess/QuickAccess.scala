@@ -1,17 +1,13 @@
 package scala.Main.QuickAccess
 
 import org.apache.spark.sql.SaveMode
-import org.apache.spark.sql.functions._
-import org.apache.spark.sql.{SaveMode, SparkSession}
-import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
-import org.apache.spark.sql.{DataFrame, Row, SaveMode}
 
 import scala.Main.SparkSessionWrapper
-import scala.models.{Receipt, User, UserMonthResult}
+import scala.models.{User, UserMonthResult}
 
 object QuickAccess extends SparkSessionWrapper {
   def main(args: Array[String]): Unit = {
-    var aggregatedReceiptsByProductTypePath = "src/resources/aggregate/receiptsByProductType"
+    // var aggregatedReceiptsByProductTypePath = "src/resources/aggregate/receiptsByProductType"
     var sumOfExpencesByUserAndPeriodPath = "src/resources/aggregate/sumOfExpencesByUserAndPeriod"
     var savedUsers = "src/resources/ingest/users"
 
@@ -28,8 +24,6 @@ object QuickAccess extends SparkSessionWrapper {
       .read.parquet(sumOfExpencesByUserAndPeriodPath)
 
    sumOfExpencesByUserAndPeriod.show()
-
-    import spark.implicits._
 
    val joinedTables = sumOfExpencesByUserAndPeriod
      .join(usersDs, "user_id")
