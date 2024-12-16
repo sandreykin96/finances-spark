@@ -2,15 +2,18 @@ package scala.models
 
 case class UserMonthResult
 (
-   user_id: Int,
-   period: String,
-   total_wasted_sum: Double,
-   name: String,
-   email: String,
-   saving_goal: Double,
-   amount_of_money: Double,
-   debt: Double,
-   income: Double,
+  user_id: Int,
+  period: String,
+  total_wasted_sum: Double,
+  name: String,
+  email: String,
+  saving_goal: Double,
+  amount_of_money: Double,
+  debt: Double,
+  income: Double,
+  average_wasted: Double,
+  average_surplus: Double,
+  mounts_to_goal: Double
 )
 
 object UserMonthResult {
@@ -24,7 +27,10 @@ object UserMonthResult {
       c.saving_goal,
       c.amount_of_money,
       c.debt,
-      c.income
+      c.income,
+      c.average_wasted,
+      c.average_surplus,
+      c.mounts_to_goal
     )
   }
 }

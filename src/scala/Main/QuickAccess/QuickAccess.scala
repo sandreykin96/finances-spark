@@ -2,13 +2,14 @@ package scala.Main.QuickAccess
 
 import org.apache.spark.sql.SaveMode
 
+import org.apache.spark.sql.functions._
 import scala.Main.SparkSessionWrapper
 import scala.models.{User, UserMonthResult}
 
 object QuickAccess extends SparkSessionWrapper {
   def main(args: Array[String]): Unit = {
     // var aggregatedReceiptsByProductTypePath = "src/resources/aggregate/receiptsByProductType"
-    var sumOfExpencesByUserAndPeriodPath = "src/resources/aggregate/sumOfExpencesByUserAndPeriod"
+    var sumOfExpensesByUserAndPeriodPath = "src/resources/aggregate/sumOfExpencesByUserAndPeriod"
     var savedUsers = "src/resources/ingest/users"
 
     import spark.implicits._
@@ -20,13 +21,24 @@ object QuickAccess extends SparkSessionWrapper {
 
     usersDs.show()
 
-    val sumOfExpencesByUserAndPeriod = spark
-      .read.parquet(sumOfExpencesByUserAndPeriodPath)
+    val sumOfExpensesByUserAndPeriod = spark
+      .read.parquet(sumOfExpensesByUserAndPeriodPath)
 
-   sumOfExpencesByUserAndPeriod.show()
 
-   val joinedTables = sumOfExpencesByUserAndPeriod
+    sumOfExpensesByUserAndPeriod.show()
+
+    val averageExpenses = sumOfExpensesByUserAndPeriod.groupBy("user_id")
+      .agg(
+        avg($"total_wasted_sum").as("average_wasted")
+      )
+
+   val joinedTables = sumOfExpensesByUserAndPeriod
      .join(usersDs, "user_id")
+     .join(averageExpenses, "user_id")
+     .withColumn("average_surplus", col("income") - col("average_wasted"))
+     .withColumn("mounts_to_goal",
+       when(col("average_surplus") > 0, col("saving_goal") / col("average_surplus")).otherwise( -1)
+     )
      .as[UserMonthResult]
      .map(UserMonthResult(_))
 
