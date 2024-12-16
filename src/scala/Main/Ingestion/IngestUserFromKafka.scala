@@ -1,7 +1,9 @@
 package scala.Main.Ingestion
 
+import org.apache.spark.sql.functions.col
+import org.apache.spark.sql.types.IntegerType
 import org.apache.spark.sql.{SaveMode, functions}
-
+import org.apache.spark.sql.types._
 import scala.Main.SparkSessionWrapper
 
 object IngestUserFromKafka extends SparkSessionWrapper {
@@ -18,13 +20,19 @@ object IngestUserFromKafka extends SparkSessionWrapper {
       .load()
 
     val users = df.selectExpr("CAST(value AS STRING)")
-      .withColumn("id", functions.json_tuple(functions.col("value"), "id"))
+      .withColumn("user_id", functions.json_tuple(functions.col("value"), "id"))
       .withColumn("name", functions.json_tuple(functions.col("value"), "name"))
       .withColumn("email", functions.json_tuple(functions.col("value"), "email"))
       .withColumn("saving_goal", functions.json_tuple(functions.col("value"), "saving_goal"))
       .withColumn("amount_of_money", functions.json_tuple(functions.col("value"), "amount_of_money"))
       .withColumn("debt", functions.json_tuple(functions.col("value"), "debt"))
       .withColumn("income", functions.json_tuple(functions.col("value"), "income"))
+      .withColumn("user_id", col("user_id").cast(IntegerType))
+      .withColumn("saving_goal", col("saving_goal").cast(DoubleType))
+      .withColumn("amount_of_money", col("amount_of_money").cast(DoubleType))
+      .withColumn("debt", col("debt").cast(DoubleType))
+      .withColumn("income", col("income").cast(DoubleType))
+
       .drop("value")
 
     users.show()

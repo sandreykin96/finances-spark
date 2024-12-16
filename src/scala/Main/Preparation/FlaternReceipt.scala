@@ -34,7 +34,7 @@ object FlaternReceipt extends SparkSessionWrapper {
       .withColumn("items", from_json($"items", ArrayType(itemSchema))) // Преобразуем JSON-строку в массив
       .withColumn("item", explode($"items")) // Разворачиваем массив items
       .select(
-        $"user",
+        $"user_id",
               $"created_at",
               $"item.name".as("name"),
               $"item.price".as("price"),
@@ -46,7 +46,7 @@ object FlaternReceipt extends SparkSessionWrapper {
               $"item.payment_type".as("payment_type"),
     ) // Извлекаем нужные поля
       .withColumn("period", F.date_format($"created_at", "yyyyMM"))
-      .withColumn("user", col("user").cast(IntegerType))
+      .withColumn("user_id", col("user_id").cast(IntegerType))
       .withColumn("created_at", col("created_at").cast(TimestampType))
 
     flattenedDF.show(50)

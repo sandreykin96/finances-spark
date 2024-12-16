@@ -21,16 +21,16 @@ object AggregateReceipts extends SparkSessionWrapper {
     receiptsDs.show()
 
     var groupedByUserPeriodAndProductType = receiptsDs
-      .groupBy("user", "period", "product_type")
-      .agg(sum("sum").alias("totalSum"))
-      .orderBy(desc("totalSum"))
+      .groupBy("user_id", "period", "product_type")
+      .agg(sum("sum").alias("total_wasted_sum"))
+      .orderBy(desc("total_wasted_sum"))
 
     groupedByUserPeriodAndProductType.show()
 
     var sumOfExpencesByUserAndPeriod = receiptsDs
-      .groupBy("user", "period")
-      .agg(sum("sum").alias("totalSum"))
-      .orderBy(desc("totalSum"))
+      .groupBy("user_id", "period")
+      .agg(sum("sum").alias("total_wasted_sum"))
+      .orderBy(desc("total_wasted_sum"))
 
     sumOfExpencesByUserAndPeriod.show()
 

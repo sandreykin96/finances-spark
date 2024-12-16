@@ -2,25 +2,25 @@ package scala.models
 
 case class User
 (
-   id: Int,
+   user_id: Int,
    name: String,
    email: String,
-   saving_goal: BigDecimal,
-   amount_of_money: BigDecimal,
-   debt: BigDecimal,
-   income: BigDecimal
+   saving_goal: Double,
+   amount_of_money: Double,
+   debt: Double,
+   income: Double
 )
 
 object User {
   def apply(c: User): User = {
     User(
-      c.id,
+      c.user_id,
       c.name,
       c.email,
-      c.saving_goal,
-      c.amount_of_money,
-      c.debt,
-      c.income
+      c.saving_goal.toDouble,
+      c.amount_of_money.toDouble,
+      c.debt.toDouble,
+      c.income.toDouble
     )
   }
 }

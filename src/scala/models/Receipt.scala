@@ -7,7 +7,7 @@ import java.util
 
 case class Receipt
 (
-  user: Int,
+  user_id: Int,
   created_at: Timestamp,
   name: String,
   price: Double,
@@ -23,7 +23,7 @@ object Receipt {
 
   def apply(c: Receipt): Receipt = {
     Receipt(
-      c.user,
+      c.user_id,
       c.created_at,
       c.name,
       c.price,

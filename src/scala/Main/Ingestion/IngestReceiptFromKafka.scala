@@ -18,7 +18,7 @@ object IngestReceiptFromKafka extends SparkSessionWrapper {
       .load()
 
     val receiptValues = df.selectExpr("CAST(value AS STRING)")
-      .withColumn("user", functions.json_tuple(functions.col("value"), "user"))
+      .withColumn("user_id", functions.json_tuple(functions.col("value"), "user"))
       .withColumn("created_at", functions.json_tuple(functions.col("value"), "created_at"))
       .withColumn("items", functions.json_tuple(functions.col("value"), "items"))
       .drop("value")
