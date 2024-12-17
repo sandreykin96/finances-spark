@@ -51,7 +51,7 @@ object QuickAccess extends SparkSessionWrapper {
       .option("driver", "org.postgresql.Driver")
       .option("user", "esf")
       .option("password", "secret")
-      .option("dbtable", "personal_finances")
+      .option("dbtable", "finances")
       .save()
 
     spark.stop()
